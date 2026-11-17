@@ -1,0 +1,72 @@
+//platform variable
+var platformx =200;
+var platformy = 300;
+var platformw = 100;
+var platformh = 20;
+
+const gravity = 0.4;
+const platforms = [];
+const platformCount = 5;
+const platformwidth = 100;
+const platformheight = 20;
+let score = 0;
+let gameactive = true;
+
+const keys = {
+    left: false,
+    right: false
+};
+
+function initplatforms() {
+    platforms.length = 0;
+    for (let i = 0; i < platformCount; i++) {
+        platforms.push({
+            x: Math.random() * (canvas.w - platformwidth),
+            y: (canvas.height / 2) - i *60 + (math.random() * 20),
+            w: platformwidth,
+            h: platformheight
+        });
+    }
+
+    platforms[0].x = player.x - platformwidth / 2;
+    platforms[0].y = player.y + 50;
+}
+
+//insert player drawing here
+
+//draw box
+function draw() {
+  fill("brown");
+  rect(platformx, platformy, platformw, platformh);
+}
+
+function updatePlayer() {
+    player.vy += gravity;
+    player.y += player.vy;
+
+    if (keys.left) player.x -= player.speed;
+    if (keys.right) player.x += player.speed;
+
+    if (player.x < 0) player.x = 0;
+    if (player.x + player.w > canvas.w) player.x = canvas.w - player.w;
+
+    if (player.vy > 0) {
+        platforms.forEach(platform => {
+            if (player.x + player.w > platform.x && player.x < platform.x + platform.w &&
+                player.y + player.h > platform.y && player.y + player.h < platform.y + platform.h) {
+        
+            player.vy = jumpforce;
+        }
+    }
+);}
+}
+
+function updatePlatform() {
+    platforms.forEach(platform => {
+        platform.y += 1;
+        if (platform.y > canvas.h) {
+            platform.y = -platform.h;
+            platform.x = Math.random() * (canvas.w - platformw);
+        }
+    });
+}
