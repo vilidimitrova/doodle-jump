@@ -5,12 +5,17 @@ export default class starPlayer {
     vy;
     gravity;
 
-    constructor() {
+    constructor(img) {
+        this.img =img;
         this.radius = 100;
         this.xPos = 50;
         this.yPos = height - this.radius;
         this.vy = 0;
         this.gravity = 1;
+    }
+
+    draw() {
+        rect(this.xPos, this.yPos, this.radius, this.radius);
     }
 
     jump() {
@@ -22,10 +27,16 @@ export default class starPlayer {
     move() {
         this.yPos += this.vy;
         this.vy += this.gravity;
-        this.y = constrain(this.y, 0, height - this.radius);
+        this.yPos = constrain(this.yPos, 0, height - this.radius);
     }
-
+    //telling the class to access the png
     show() {
-        image(gameCharacter,this.xPos,this.yPos,this.radius,this.radius);
+        image(
+            this.img,
+            this.xPos,
+            this.yPos,
+            this.radius,
+            this.radius
+        );
     }
 }
