@@ -1,12 +1,12 @@
-import starPlayer from "./Star";
-import Setting from "./background";
+import starPlayer from "./Star.js";
+import Setting from "./background.js";
 
 let gameCharacter; //name for object or the star
 let setting;
 let starImage;
 
 function preload() {
-  starImage = loadImage('star.png'); //image of star
+  starImage = loadImage("star.png"); //image of star
 }
 
 function setup() {
@@ -17,7 +17,7 @@ function setup() {
 
 //jump function
 function keyPressed() {
-  if(key == ' ') {
+  if (key == " ") {
     gameCharacter.jump();
   }
 }
