@@ -1,32 +1,27 @@
-// Draws the sky. The higher the star climbs, the darker the sky gets, until the player reaches space and the stars appear.
-export default class Setting {
-  stars = []; // array
-  progress = 0; // bg color value
+export default class Background {
+  stars = [];
+  progress = 0;
 
   constructor(starCount) {
-    // loop to create the stars at random positions
     for (let i = 0; i < starCount; i++) {
-      this.stars.push({
-        x: random(width),
-        y: random(height),
-        size: random(1, 3),
-      });
+      this.stars.push({ x: random(width), y: random(height) });
     }
   }
 
   display() {
-    // blend between light blue (sky) and dark blue (space) depending on progress
-    const skyColor = color(135, 206, 235);
-    const spaceColor = color(10, 10, 40);
-    background(lerpColor(skyColor, spaceColor,this.progress));
+    if (this.progress < 0.33) {
+      background("skyblue");
+    } else if (this.progress < 0.66) {
+      background("royalblue");
+    } else {
+      background("midnightblue");
+    }
 
-    // stars fade in as progress goes up
-    noStroke();
-    fill(255, 255, 255, this.progress * 255);
-
-    for (let i = 0; i < this.stars.length; i++) {
-      const star = this.stars[i];
-      circle(star.x, star.y, star.size);
+    if (this.progress > 0.66) {
+      fill("white");
+      for (let i = 0; i < this.stars.length; i++) {
+        circle(this.stars[i].x, this.stars[i].y, 3);
+      }
     }
   }
 }
